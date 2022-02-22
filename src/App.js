@@ -14,7 +14,6 @@ const App = () => {
           <Route path="/media" element={<Media/>}/>
           <Route path="/about" element={<About/>}/>
         </Routes>
-
       </div>
     </BrowserRouter>
   )
