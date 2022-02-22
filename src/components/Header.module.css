@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  grid-area: h;
+  background-color: rgb(99, 99, 99);
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.menu {
+  display: flex;
+  padding: 5px;
+}
+.item_menu {
+  padding-left  :5px;
+  cursor: pointer;
+}
+.item_menu:hover {
+  color:gray
+}
