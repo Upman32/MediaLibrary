@@ -4,7 +4,7 @@
   "h"
   "c" ;
   color:rgb(216, 213, 213);
-  grid-template-rows: 1fr 13fr;
+  grid-template-rows: 1fr 15fr;
   background-color: rgb(112, 108, 108);
 }
 body {

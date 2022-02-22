@@ -1,6 +1,5 @@
-import classes from './Content.module.css'
-
-const Content = () => {
+import classes from './Media.module.css'
+const Media = () => {
   return (
     <div className={classes.content}>
       <div className={classes.menu}>
@@ -40,6 +39,6 @@ description description description description description
       </div>
     </div>
   )
+  
 }
-
-export default Content
+export default Media
