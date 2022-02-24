@@ -2,7 +2,6 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { getMediaFiles, getVisible } from '../store/Media-selector'
 import { callEditor } from '../store/MediaReducer'
-import { } from '../store/store'
 import classes from './Media.module.css'
 
 const Media = () => {
