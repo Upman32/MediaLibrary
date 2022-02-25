@@ -11,7 +11,7 @@ const mediaReducer = (state = initialState, action) => {
   case 'SET_MEDIA_INFO':  
     return {
       ...state,
-      mediaFiles: action.mediaFiles
+      mediaFiles: action.payload
     }
   case 'CREATE_MEDIA':  
     return {
@@ -22,13 +22,19 @@ const mediaReducer = (state = initialState, action) => {
         description: action.payload.description
       }]
     }
+  case 'DELETE_MEDIA':  
+    return {
+      ...state,
+      mediaFiles: state.mediaFiles.filter((_, index) => index !== action.payload)
+    }
   default:
     return state
   }
 }
 export const actions = {
   addMedia: (payload) => ({type:'CREATE_MEDIA', payload}),
-  setMedia: (mediaFiles) => ({ type: 'SET_MEDIA_INFO', mediaFiles }),
+  setMedia: (mediaFiles) => ({ type: 'SET_MEDIA_INFO', payload:mediaFiles }),
+  deleteMedia: (index) => ({ type: 'DELETE_MEDIA', payload:index }),
   
 }
 export const makeMedia = (picture, header, description) => (dispatch) => {

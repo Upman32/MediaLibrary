@@ -11,6 +11,11 @@
   justify-content: center;
   
 }
+.delete_button{
+  background-color: red ;
+  width: 15px;
+align-items: end;
+}
 .menu_block {
   background-color: rgb(75, 75, 75);
 
@@ -21,12 +26,6 @@
   margin: 10px;
   height: 50%;
 }
-.newspicture {
-
-}
-.desc {
-  
-}
 .media_creation {
   display: flex;
   flex-direction: column;
@@ -35,28 +34,7 @@
   padding: 10px;
   
 }
-.record {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-}
-.register {
-  margin: 5px;
-
-}
 .create_button{
   margin: 10px;
-}
-.accept_button{
-  margin: 10px;
-  background-color: rgb(33, 199, 33);
-}
-.decline_button{
-  margin: 10px;
-  background-color: rgb(201, 63, 29);
-
-}
-textarea {
-  resize: none;
-
+  justify-content: center;
 }

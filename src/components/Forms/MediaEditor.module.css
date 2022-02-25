@@ -1,0 +1,34 @@
+
+.media_creation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  
+}
+.record {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.register {
+  margin: 5px;
+
+}
+.create_button{
+  margin: 10px;
+}
+.accept_button{
+  margin: 10px;
+  background-color: rgb(33, 199, 33);
+}
+.decline_button{
+  margin: 10px;
+  background-color: rgb(201, 63, 29);
+
+}
+textarea {
+  resize: none;
+
+}
