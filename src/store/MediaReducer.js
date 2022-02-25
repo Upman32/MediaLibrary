@@ -1,10 +1,9 @@
-
+import { callEditor } from './MediaEditor'
 let initialState = {
   mediaFiles:[ 
-    { id: 0, picture: 'picture', header: 'header', description: 'description description description description description' },
-    { id: 1, picture: 'picture', header: 'header', description: 'description description description description description' },
-    { id: 2, picture: 'picture', header: 'header', description: 'description description description description description' }],
-  visible:false
+    {picture: 'picture', header: 'header', description: 'description description description description description' },
+    {picture: 'picture', header: 'header', description: 'description description description description description' },
+    {picture: 'picture', header: 'header', description: 'description description description description description' }],
 }
 const mediaReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -14,23 +13,26 @@ const mediaReducer = (state = initialState, action) => {
       ...state,
       mediaFiles: action.mediaFiles
     }
-  case 'SET_VISIBLE':  
+  case 'CREATE_MEDIA':  
     return {
       ...state,
-      visible: action.visible
+      mediaFiles: [...state.mediaFiles, {
+        picture:action.payload.picture, 
+        header: action.payload.header, 
+        description: action.payload.description
+      }]
     }
-
   default:
     return state
   }
 }
 export const actions = {
+  addMedia: (payload) => ({type:'CREATE_MEDIA', payload}),
   setMedia: (mediaFiles) => ({ type: 'SET_MEDIA_INFO', mediaFiles }),
-  setVisible: (visible) => ({type: 'SET_VISIBLE', visible})
+  
 }
-
-export const callEditor = (visible) => (dispatch) => {
-  dispatch(actions.setVisible(visible))
-
+export const makeMedia = (picture, header, description) => (dispatch) => {
+  dispatch(actions.addMedia({picture, header, description}))
+  dispatch(callEditor(false))
 }
 export default mediaReducer

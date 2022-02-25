@@ -1,10 +1,15 @@
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
-import { getMediaFiles, getVisible } from '../store/Media-selector'
-import { callEditor } from '../store/MediaReducer'
+import { useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { callEditor } from '../../store/MediaEditor'
+import { getVisible } from '../../store/MediaEditor-selector'
+import { getMediaFiles } from '../../store/Media-selector'
+import { makeMedia } from '../../store/MediaReducer'
 import classes from './Media.module.css'
 
 const Media = () => {
+  const picture = useRef()
+  const header = useRef()
+  const description = useRef()
 
   const mediaFiles = useSelector(getMediaFiles)
   const visible = useSelector(getVisible)
@@ -14,20 +19,28 @@ const Media = () => {
   const onVisibleChanged = (visible) => {
     dispatch(callEditor(visible))
   }
-
+  const onVisibleDisable = () => {
+    onVisibleChanged(false)
+  }
+  const onVisibleEnable = () => {
+    onVisibleChanged(true)
+  }
+  const createMedia = (picture, header, description) => {
+    dispatch(makeMedia(picture.current.value, header.current.value,description.current.value))
+  }
   return (
     <div className={classes.content}>
       <div className={classes.menu}>
-        {mediaFiles.map( bl => 
-          <div key={bl.id} className={classes.menu_block}>
+        {mediaFiles.map( (media, key) => 
+          <div key={key} className={classes.menu_block}>
             <div>
-              {bl.picture}
+              {media.picture}
             </div>
             <div>
-              {bl.header}
+              {media.header}
             </div>
             <div>
-              {bl.description}
+              {media.description}
             </div>
           </div>
         )}
@@ -36,22 +49,22 @@ const Media = () => {
         {visible &&
         <div className={classes.record}>
           <div className={classes.register}> <div>Put file picture</div>
-            <input/>
+            <input ref={picture}/>
           </div>
           <div className={classes.register}><div>Enter header</div>
-            <input/>
+            <input ref={header}/>
           </div>
           <div className={classes.register}> <div>Enter description</div>
-            <textarea/>
+            <textarea ref={description}/>
           </div>
         </div> 
         }
         {!visible &&
-        <button className={classes.create_button} onClick={() => onVisibleChanged(true)}>Create</button>
+        <button className={classes.create_button} onClick={() => onVisibleEnable()}>Create</button>
         }
         {visible && <div>
-          <button className={classes.accept_button}>Accept</button>
-          <button className={classes.decline_button} onClick={() => onVisibleChanged(false)}>Decline</button>
+          <button className={classes.accept_button} onClick={() => createMedia(picture, header, description)}>Accept</button>
+          <button className={classes.decline_button} onClick={() => onVisibleDisable()}>Decline</button>
         </div>}
       </div>
     </div>
