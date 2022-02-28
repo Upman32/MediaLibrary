@@ -5,7 +5,7 @@ import mediaReducer from './MediaReducer'
 
 let reducers = combineReducers({
   MediaPage: mediaReducer,
-  EditorPage: editorReducer
+  EditorForm: editorReducer
   
 })
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

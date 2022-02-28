@@ -10,14 +10,12 @@ const Media = () => {
 
   const dispatch = useDispatch()  
 
-  const onVisibleChanged = (visible) => {
-    dispatch(callEditor(visible))
-  }
-  const onVisibleEnable = () => {
-    onVisibleChanged(true)
-  }
   const onMediaDelete = (key) => {
     dispatch(actions.deleteMedia(key))
+  }
+  const callEditorClick = (event) => {
+    const index = parseInt(event.target.getAttribute('index'))
+    dispatch(callEditor(index))
   }
 
   return (
@@ -25,9 +23,14 @@ const Media = () => {
       <div className={classes.menu}>
         {mediaFiles.map( (media, key) => 
           <div key={key} className={classes.menu_block}>
-            <span onClick={()=>onMediaDelete(key)} className={classes.delete_button}>
+            <div className={classes.media_buttons}>
+              <span onClick={()=>onMediaDelete(key)} className={classes.delete_button}>
               X
-            </span>
+              </span>
+              <span onClick={callEditorClick} index={key} className={classes.delete_button}>
+              R
+              </span>
+            </div>
             <div>
               {media.picture}
             </div>
@@ -42,7 +45,13 @@ const Media = () => {
       </div>
       <div className={classes.media_creation}>
 
-        <button className={classes.create_button} onClick={() => onVisibleEnable()}>Create</button>
+        <button
+          className={classes.create_button} 
+          index="-1" 
+          onClick={callEditorClick}
+        >
+          Create
+        </button>
         <MediaEditor/>
       </div>
     </div>

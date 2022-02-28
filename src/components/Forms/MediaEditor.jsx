@@ -1,47 +1,52 @@
-import { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { callEditor } from '../../store/MediaEditor'
-import { getVisible } from '../../store/MediaEditor-selector'
-import { makeMedia } from '../../store/MediaReducer'
+import { editorActions, mediaEditorConfirm } from '../../store/MediaEditor'
+import { getDescription, getHeader, getMediaId, getPicture, getVisible } from '../../store/MediaEditor-selector'
 import classes from './MediaEditor.module.css'
 
 const MediaEditor = () => {
-  const picture = useRef()
-  const header = useRef()
-  const description = useRef()
 
   const visible = useSelector(getVisible)
-
+  const picture = useSelector(getPicture)
+  const header = useSelector(getHeader)
+  const description = useSelector(getDescription)
+  const id = useSelector(getMediaId)
   const dispatch = useDispatch()  
 
-  const onVisibleChanged = (visible) => {
-    dispatch(callEditor(visible))
+  const closeEditor = () => {
+    dispatch(editorActions.setVisible(false))
   }
-  const onVisibleDisable = () => {
-    onVisibleChanged(false)
+  const onChangePicturetext = (event) => {
+    dispatch(editorActions.setPicture(event.target.value))
+  }
+  const onChangeHeadertext = (event) => {
+    dispatch(editorActions.setHeader(event.target.value))
+  }
+  const onChangeDescriptiontext = (event) => {
+    dispatch(editorActions.setDescription(event.target.value))
   }
 
-  const createMedia = (picture, header, description) => {
-    dispatch(makeMedia(picture.current.value, header.current.value,description.current.value))
+  const createMediaClick = () => {
+    dispatch(mediaEditorConfirm())
   }
   return (<div>
     {visible &&
         <div className={classes.record}>
           <div className={classes.register}> <div>Put file picture</div>
-            <input ref={picture}/>
+            <input value={picture} onChange={onChangePicturetext} />
           </div>
           <div className={classes.register}><div>Enter header</div>
-            <input ref={header}/>
+            <input value={header} onChange={onChangeHeadertext} />
           </div>
           <div className={classes.register}> <div>Enter description</div>
-            <textarea ref={description}/>
+            <textarea value={description} onChange={onChangeDescriptiontext} />
+          </div>
+          <div>
+            <button className={classes.decline_button} onClick={closeEditor}>Decline</button>
+            <button className={classes.accept_button} onClick={createMediaClick}>{id===-1 ? 'Create' : 'Update'}</button>
           </div>
         </div> 
     }
-    {visible && <div>
-      <button className={classes.decline_button} onClick={() => onVisibleDisable()}>Decline</button>
-      <button className={classes.accept_button} onClick={() => createMedia(picture, header, description)}>Accept</button>
-    </div>}
+
   </div> )
 
 }

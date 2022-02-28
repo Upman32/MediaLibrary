@@ -16,6 +16,8 @@
   width: 15px;
 align-items: end;
 }
+.media_buttons {
+  display: flex;}
 .menu_block {
   background-color: rgb(75, 75, 75);
 

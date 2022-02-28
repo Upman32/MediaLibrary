@@ -23,6 +23,10 @@
   margin: 10px;
   background-color: rgb(33, 199, 33);
 }
+.update_button{
+  margin: 10px;
+  background-color: rgb(51, 200, 211);
+}
 .decline_button{
   margin: 10px;
   background-color: rgb(201, 63, 29);
