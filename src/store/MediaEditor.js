@@ -1,81 +1,81 @@
-import {createMedia, updateMedia } from './MediaReducer'
+import {createMedia, updateMedia} from './media'
+const EMPTY_MEDIA = {
+  picture: '', 
+  header: '',
+  description: ''
+}
+// id<=-2 - editor will be hidden 
+// id=-1 - editor will create new media object
+// id=[0,length] - editor will take media from library 
 
 let initialState = {
-  visible:false,
-  picture:'',
-  header:'',
-  description:'',
-  id:-1
+  picture: '',
+  header: '',
+  description: '',
+  id: -2
 }
-const editorReducer = (state = initialState, action) => {
+const mediaEditor = (state = initialState, action) => {
   switch (action.type) {
-  case 'SET_VISIBLE':  
-    return {
-      ...state,
-      visible: action.visible
-    }
-  case 'SET_PICTURE':  
-    return {
-      ...state,
-      picture: action.payload
-    }
-  case 'SET_HEADER':  
-    return {
-      ...state,
-      header: action.payload
-    }
-  case 'SET_DESCRIPTION':  
-    return {
-      ...state,
-      description: action.payload
-    }
   case 'SET_MEDIA_DATA':  
     return {
       ...state,
       ...action.payload
     }
-  case 'SET_MEDIA_ID':  
+  case 'UPDATE_MEDIA': {
+    const obj = {
+    }
+
+    obj[action.payload.field]=action.payload.value
     return {
       ...state,
-      id:action.payload
-    }
+      ...obj
+    }}  
   default:
     return state
   }
+  
 }
 export const editorActions = {
-  setVisible: (visible) => ({type: 'SET_VISIBLE', visible}),
-  setPicture: (picture) =>({type:'SET_PICTURE', payload:picture}),
-  setHeader: (header) =>({type:'SET_HEADER', payload:header}),
-  setDescription: (description) =>({type:'SET_DESCRIPTION', payload:description}),
-  setMediaData: (payload) =>({type:'SET_MEDIA_DATA', payload}),
-  setMediaId: (payload) =>({type:'SET_MEDIA_ID', payload})
+  setMediaData: (payload) => ({
+    type: 'SET_MEDIA_DATA', payload
+  }),
+  updateMedia: (value, field) => ({
+    type: 'UPDATE_MEDIA', payload: {
+      value, field
+    }
+  }),
+  closeEditor: () => ({
+    type: 'UPDATE_MEDIA', payload: {
+      value: -2, field: 'id'
+    }
+  })
 }
 
 export const callEditor = (id) => (dispatch, getState) => {
   if (id===-1) {
+    dispatch(editorActions.setMediaData(EMPTY_MEDIA))
+  } else {
+    const {mediaFiles} = getState().media
+    const {picture, header, description} = mediaFiles[id]
     dispatch(editorActions.setMediaData({
-      picture:'', 
-      header:'',
-      description:''
+      picture, header, description
+    }))
+  }
+  dispatch(editorActions.updateMedia(id, 'id'))
+}
+
+export const mediaEditorConfirm = () => (dispatch, getState) => {
+  const {id, picture, header, description} = getState().mediaEditor
+  
+  if (id===-1) {
+    dispatch(createMedia({
+      picture, header, description
     }))
   } else {
-    const {mediaFiles} = getState().MediaPage
-    const {picture, header, description} = mediaFiles[id]
-    dispatch(editorActions.setMediaData({picture, header, description}))
+    dispatch(updateMedia(id, {
+      picture, header, description
+    }))
   }
-  dispatch(editorActions.setMediaId(id))
-  dispatch(editorActions.setVisible(true))
-
+  dispatch(editorActions.closeEditor())
 }
-export const mediaEditorConfirm = () => (dispatch, getState) => {
-  const {id, picture, header, description} = getState().EditorForm
-  if (id===-1) {
-    dispatch(createMedia({picture, header, description}))
-  } else {
-    dispatch(updateMedia(id, {picture, header, description}))
-  }
-
-}
-
-export default editorReducer
+export default mediaEditor

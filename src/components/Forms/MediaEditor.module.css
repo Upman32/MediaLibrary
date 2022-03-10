@@ -1,11 +1,9 @@
-
 .media_creation {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 10px;
-  
 }
 .record {
   display: flex;
@@ -14,25 +12,71 @@
 }
 .register {
   margin: 5px;
-
 }
 .create_button{
   margin: 10px;
 }
-.accept_button{
-  margin: 10px;
-  background-color: rgb(33, 199, 33);
+.accept_button:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2),
+    0px 0.5px 1.5px rgba(54, 122, 246, 0.25),
+    0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
 }
-.update_button{
+.accept_button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 14px;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(180deg, #d8f74b 0%, #45d15c 100%);
+  background-origin: border-box;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25),
+    inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
   margin: 10px;
-  background-color: rgb(51, 200, 211);
 }
-.decline_button{
+.decline_button:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2),
+    0px 0.5px 1.5px rgba(54, 122, 246, 0.25),
+    0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+.decline_button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 14px;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(180deg, #da6416 0%, #d11f69 100%);
+  background-origin: border-box;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25),
+    inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
   margin: 10px;
-  background-color: rgb(201, 63, 29);
-
+}
+.option_bar {
+  display: flex;
 }
 textarea {
+  background-color: #591f80;
+
+  color:rgb(252, 240, 240);
+
   resize: none;
+
+}
+input{
+  background-color: #591f80;
+  color:rgb(252, 240, 240);
 
 }

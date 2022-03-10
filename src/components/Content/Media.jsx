@@ -1,18 +1,19 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { callEditor } from '../../store/MediaEditor'
-import { getMediaFiles } from '../../store/Media-selector'
+import {useDispatch, useSelector} from 'react-redux'
+import {getMediaFiles} from '../../store/Media-selector'
 import classes from './Media.module.css'
+import {actions} from '../../store/media'
+import {callEditor} from '../../store/mediaEditor'
 import MediaEditor from '../Forms/MediaEditor'
-import { actions } from '../../store/MediaReducer'
 
 const Media = () => {
   const mediaFiles = useSelector(getMediaFiles)
 
   const dispatch = useDispatch()  
-
+  
   const onMediaDelete = (key) => {
     dispatch(actions.deleteMedia(key))
   }
+  
   const callEditorClick = (event) => {
     const index = parseInt(event.target.getAttribute('index'))
     dispatch(callEditor(index))
@@ -23,20 +24,25 @@ const Media = () => {
       <div className={classes.menu}>
         {mediaFiles.map( (media, key) => 
           <div key={key} className={classes.menu_block}>
-            <div className={classes.media_buttons}>
-              <span onClick={()=>onMediaDelete(key)} className={classes.delete_button}>
-              X
-              </span>
-              <span onClick={callEditorClick} index={key} className={classes.delete_button}>
+ 
+            <div className={classes.themepic}style={{
+              background: `url(${media.picture}) no-repeat center `,
+              backgroundSize: 'cover'
+            }}>
+              <div className={classes.media_buttons}>
+     
+                <span onClick={callEditorClick} index={key} className={classes.media_edit}>
               R
-              </span>
+                </span>
+                <span onClick={() => onMediaDelete(key)} className={classes.media_delete}>
+              X
+                </span>
+              </div>
             </div>
-            <div>
-              {media.picture}
-            </div>
-            <div>
+            
+            <h2>
               {media.header}
-            </div>
+            </h2>
             <div>
               {media.description}
             </div>
