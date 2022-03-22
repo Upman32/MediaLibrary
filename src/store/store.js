@@ -1,5 +1,5 @@
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux'
-import thunkMiddleware from 'redux-thunk'
+import thunk from 'redux-thunk'
 import mediaEditor from './mediaEditor'
 import media from './media'
 
@@ -9,6 +9,6 @@ let reducers = combineReducers({
 }) 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-let store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)))
+let store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)))
 window.store = store
 export default store

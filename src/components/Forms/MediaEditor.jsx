@@ -1,10 +1,11 @@
+import gsap from 'gsap'
+import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {editorActions, mediaEditorConfirm} from '../../store/mediaEditor'
 import {getDescription, getHeader, getMediaId, getPicture, getVisible} from '../../store/MediaEditor-selector'
 import classes from './MediaEditor.module.css'
-
+import c from '../Content/Media.module.css'
 const MediaEditor = () => {
- 
   const visible = useSelector(getVisible)
   const picture = useSelector(getPicture)
   const header = useSelector(getHeader)
@@ -13,6 +14,14 @@ const MediaEditor = () => {
   const dispatch = useDispatch()  
 
   const closeEditorClick = () => {
+    gsap.to(`.${c.menu}`, {
+      duration: 1.2,
+      opacity: 1
+    })
+    gsap.to(`.${c.create_button}`, {
+      duration: 1.2,
+      opacity: 1
+    })
     dispatch(editorActions.closeEditor())
   }
 
@@ -23,13 +32,22 @@ const MediaEditor = () => {
   
   const createMediaClick = () => {
     dispatch(mediaEditorConfirm())
+    gsap.to(`.${c.menu} .${c.create_button}`, {
+      duration: 2,
+      opacity: 1
+    })
   }
-  
+  useEffect(() => {
+    gsap.from(`.${classes.record}`, {
+      duration: 1.2,
+      opacity: .1
+    })
+  }, [visible] )
   return (<div>
     {visible &&
         <div className={classes.record}>
-          <div className={classes.register}> <div>Put file picture</div>
-            <input type="file" value={picture} target-field="picture" onChange={onUpdateMedia} />
+          <div className={classes.register}> <div>Enter base64 picture</div>
+            <textarea value={picture} target-field="picture" onChange={onUpdateMedia} />
           </div>
           <div className={classes.register}><div>Enter header</div>
             <input value={header} target-field="header" onChange={onUpdateMedia} />

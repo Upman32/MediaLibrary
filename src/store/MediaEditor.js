@@ -52,6 +52,7 @@ export const editorActions = {
 }
 
 export const callEditor = (id) => (dispatch, getState) => {
+ 
   if (id===-1) {
     dispatch(editorActions.setMediaData(EMPTY_MEDIA))
   } else {
